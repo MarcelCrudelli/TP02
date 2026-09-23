@@ -1,0 +1,37 @@
+@model IEnumerable<TP02.Models.BL>
+
+<h2>Relatório de BLs e Containers</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <p>Nenhum registo encontrado no banco de dados.</p>
+}
+else
+{
+    @foreach (var bl in Model)
+    {
+        <div style="border: 1px solid #ccc; padding: 12px; margin-bottom: 15px; border-radius: 5px;">
+            <h3>BL: @bl.Numero | Navio: @bl.Navio | Consignee: @bl.Consignee</h3>
+            
+            <h4>Containers Vinculados:</h4>
+            @if (bl.Containers != null && bl.Containers.Any())
+            {
+                <ul>
+                    @foreach (var c in bl.Containers)
+                    {
+                        <li>
+                            <strong>Número:</strong> @c.Numero | 
+                            <strong>Tipo:</strong> @c.Tipo | 
+                            <strong>Tamanho:</strong> @c.Tamanho '
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Nenhum container vinculado a este BL.</p>
+            }
+        </div>
+    }
+}
